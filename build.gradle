@@ -16,6 +16,7 @@ dependencies {
 	compileOnly group: 'net.runelite', name:'client', version: runeLiteVersion
 
 	compileOnly 'org.projectlombok:lombok:1.18.20'
+	implementation('com.pusher:pusher-java-client:2.4.4')
 	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
 	testImplementation 'junit:junit:4.12'
@@ -23,7 +24,7 @@ dependencies {
 	testImplementation group: 'net.runelite', name:'jshell', version: runeLiteVersion
 }
 
-group = 'com.example'
+group = 'com.offlineClanChat.OfflineClanChatPlugin'
 version = '1.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 
