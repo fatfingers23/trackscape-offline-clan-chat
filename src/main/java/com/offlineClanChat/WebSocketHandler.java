@@ -112,7 +112,7 @@ public class WebSocketHandler {
                     // Other ChannelEventListener methods
                 });
 
-        chatChannel.bind("external.chat", new PrivateChannelEventListener() {
+        chatChannel.bind("game.chat", new PrivateChannelEventListener() {
             @Override
             public void onAuthenticationFailure(String message, Exception e) {
 

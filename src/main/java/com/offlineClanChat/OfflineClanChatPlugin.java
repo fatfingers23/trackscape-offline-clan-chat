@@ -5,6 +5,7 @@ import com.google.inject.Provides;
 import com.pusher.client.Pusher;
 import com.pusher.client.channel.PrivateChannel;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.clan.ClanChannel;
@@ -134,8 +135,13 @@ public class OfflineClanChatPlugin extends Plugin {
             case CLAN_CHAT:
             case CLAN_MESSAGE:
                 ClanChannel clanChannel = client.getClanChannel();
-                String cleanRsn = Text.removeFormattingTags(Text.toJagexName(event.getName()));
-                ChatPayload chatPayload = ChatPayload.from(clanChannel.getName(), cleanRsn, event.getMessage());
+                String sender = "";
+                if(event.getType() == ChatMessageType.CLAN_MESSAGE){
+                    sender = clanChannel.getName();
+                }else{
+                    sender = Text.removeFormattingTags(Text.toJagexName(event.getName()));
+                }
+                ChatPayload chatPayload = ChatPayload.from(clanChannel.getName(), sender, event.getMessage());
 
                 remoteSubmitter.queue(chatPayload);
                 break;
