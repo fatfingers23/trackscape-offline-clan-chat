@@ -13,6 +13,7 @@ import net.runelite.api.clan.ClanID;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ClanChannelChanged;
 import net.runelite.api.events.GameStateChanged;
+import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
@@ -29,7 +30,8 @@ import javax.inject.Inject;
 public class OfflineClanChatPlugin extends Plugin {
     @Inject
     private Client client;
-
+    @Inject
+    private ClientThread clientThread;
     @Inject
     private OfflineClanChatConfig config;
 
@@ -89,7 +91,7 @@ public class OfflineClanChatPlugin extends Plugin {
         {
             ClanChannel clanChannel = event.getClanChannel();
             if(webSocketHandler == null){
-                webSocketHandler = WebSocketHandler.create("127.0.0.1", BASE_API_ENDPOINT, client, gson);
+                webSocketHandler = WebSocketHandler.create("127.0.0.1", BASE_API_ENDPOINT, client, gson, clientThread);
                 webSocketHandler.CreatePusherClient();
             }
             if (clanChannel != null) {
